@@ -1,0 +1,145 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<?php $this->load->view('backend/header'); ?>
+<?php $this->load->view('backend/sidebar'); ?>
+         <div class="page-wrapper">
+            <div class="message"></div>
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor"><i class="fa fa-calendar-check-o" style="color:#1976d2"></i>Attendance</h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Attendance</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+
+                <div class="row m-b-10"> 
+                    <div class="col-12">
+                        <!-- <button type="button" class="btn btn-info"><i class="fa fa-plus"></i><a href="<?php echo base_url(); ?>attendance/Save_Attendance" class="text-white"><i class="" aria-hidden="true"></i> Add Attendance </a></button>
+                        <button type="button" class="btn btn-primary"><i class="fa fa-bars"></i><a href="#" class="text-white" data-toggle="modal" data-target="#Bulkmodal"><i class="" aria-hidden="true"></i>  Add Bulk Attendance</a></button>
+                        <button type="button" class="btn btn-info"><i class="fa fa-plus"></i><a href="<?php echo base_url(); ?>attendance/Attendance_Report" class="text-white"><i class="" aria-hidden="true"></i> Attendance Report </a></button> -->
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-outline-info">
+                            <div class="card-header">
+                                <h4 class="m-b-0 text-white"> Attendance List  </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive ">
+                                    <div>
+                                    <button type="button" class="btn btn-primary" onclick="window.print();" class="noPrint" style="color:gold">PRINT ATTENDANCE REPORT</button>
+                                      <!-- <h4><b><u>N/B:Minimize Sidebar to Print Report</u></b></h4> -->
+                                    </div>
+                                <!-- <button type="button" class="btn btn-primary">Primary</button> -->
+
+                                <center>                                    <img src="<?php echo base_url();?>assets/images/hrinv.png" alt="DRI" class="DRI-logo" style="width:200px;"/>
+</center>
+                                <center><h3><b><u>HILIFE CAPITAL LIMITED EMPLOYEE JOB ATTENDANCE</u></b></h3></center>
+                                    <table  class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                       
+                                    <thead>
+
+                                            <tr>
+                                                <!-- <th>Employee Name</th> -->
+                                                <th>Employee Name</th>
+                                                <th>Date </th>
+                                                <th>Sign In</th>
+                                                <th>Sign Out</th>
+                                                <!-- <th>Working Hour</th> -->
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <!-- <th>Employee Name</th> -->
+                                                <th>Employee Name</th>
+                                                <th>Date </th>
+                                                <th>Sign In</th>
+                                                <th>Sign Out</th>
+                                                <!-- <th>Working Hour</th> -->
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                           <?php foreach($attendancelist as $value): ?>
+                                            <tr>
+                                                <!-- <td><mark><?php echo $value->name; ?></mark></td> -->
+                                                <td><?php echo $value->emp_id; ?></td>
+                                                <td><?php echo $value->atten_date; ?></td>
+                                                <td><?php echo $value->signin_time; ?></td>
+                                                <td><?php echo $value->signout_time; ?></td>
+                                                <!-- <td><?php echo $value->Hours; ?></td> -->
+                                                <td class="jsgrid-align-center ">
+                                                <!-- <?php if($value->signout_time == '00:00:00') { ?>
+                                                    <a href="Save_Attendance?A=<?php echo $value->id; ?>" title="Edit" class="btn btn-sm btn-danger waves-effect waves-light" data-value="Approve" >Sign Out</a><br>                           
+                                                <?php } ?> -->
+                                                    <a href="Save_Attendance?A=<?php echo $value->id; ?>" title="Edit" class="btn btn-sm btn-primary waves-effect waves-light" data-value="Approve" ><i class="fa fa-pencil-square-o"></i></a>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+<div id="Bulkmodal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                           <form method="post" action="import" enctype="multipart/form-data">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myModalLabel">Add Attendance</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>Import Attendance<span><img src="<?php echo base_url(); ?>assets/images/finger.jpg" height="100px" width="100px"></span>Upload only CSV file</h4>
+                                             
+                                            <input type="file" name="csv_file" id="csv_file" accept=".csv"><br><br>
+                                                                                        
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success waves-effect">Save</button>
+                                                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Close</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>                             
+<?php $this->load->view('backend/footer'); ?>
+<script>
+    $('#attendance123').DataTable({
+        "aaSorting": [[2,'desc']],
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+</script>
+<style>
+    @media print {
+  .noPrint{
+    display:none;
+  }
+}
+h1{
+  color:#f6f6;
+}
+</style>
